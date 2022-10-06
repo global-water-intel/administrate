@@ -1,0 +1,9 @@
+<div class="advanced-filter">
+  <div class="field-unit__label">
+    <%= f.label field.attribute %>
+  </div>
+
+  <div class="field-unit__field">
+    <%= f.select field.attribute, field.filter_field_values, { selected: Array(advanced_search.advanced_filters[field.attribute]).select(&:present?) }, class: 'selectize', multiple: true %>
+  </div>
+</div>

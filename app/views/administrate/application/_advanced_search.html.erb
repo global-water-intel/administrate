@@ -1,0 +1,40 @@
+<%= form_with model: [namespace, advanced_search.form_object], method: :get, path: '', scope: :search do |f| %>
+  <div class="search">
+    <label class="search__label" for="search">
+      <svg class="search__eyeglass-icon" role="img">
+        <title>
+          <%= t("administrate.search.label", resource: resource_name) %>
+        </title>
+        <use xlink:href="#icon-eyeglass" />
+      </svg>
+    </label>
+
+    <% if show_search_bar %>
+      <input class="search__input"
+             id="search"
+             type="search"
+             name="search[search]"
+             placeholder="<%= t("administrate.search.label",
+                                resource: resource_name) %>"
+             value="<%= search_term %>">
+
+      <%= link_to clear_search_params, class: "search__clear-link" do %>
+        <svg class="search__clear-icon" role="img">
+          <title><%= t("administrate.search.clear") %></title>
+          <use xlink:href="#icon-cancel" />
+        </svg>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="advanced">
+    <% advanced_search.filter_fields.each do |field| %>
+      <%= render field.to_partial_path, field: field, f: f, advanced_search: advanced_search %>
+    <% end %>
+  </div>
+
+  <div class="submit">
+    <button type="submit">Search</button>
+    <%= link_to 'Reset', [namespace, advanced_search.form_object.class], class: 'button' %>
+  </div>
+<% end %>
